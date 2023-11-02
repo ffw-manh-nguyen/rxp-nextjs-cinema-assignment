@@ -11,8 +11,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("aiemmanh");
+  const [password, setPassword] = useState("AKsW7amJGF2J.Po");
   const [submitError, setSubmitError] = useState("");
   const [isLoading, setLoading] = useState<boolean>(false);
 
