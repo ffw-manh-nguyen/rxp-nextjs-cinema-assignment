@@ -1,6 +1,8 @@
 import { appKeywords } from "@/utils/keywords";
 import { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
 import "./globals.css";
 
 const mainFont = Montserrat({ subsets: ["latin"] });
@@ -18,7 +20,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <body
         className={`${mainFont.className} mx-auto max-w-screen-2xl bg-slate-900 text-white`}
       >
-        {children}
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
