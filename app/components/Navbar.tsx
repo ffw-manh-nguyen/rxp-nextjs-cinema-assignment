@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Righteous } from "next/font/google";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Drawer from "./Drawer";
+import NavMobile from "./NavMobile";
 import MenuIcon from "./icons/MenuIcon";
 import XIcon from "./icons/XIcon";
 import SearchBar from "./SearchBar/SearchBar";
@@ -34,7 +34,7 @@ export const getCookie = (cname: string) => {
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showDrawer, setShowDrawer] = useState(false);
+  const [showNavMobile, setShowNavMobile] = useState(false);
   const [isAuth, setAuth] = useState(false);
   const [authCookie, setAuthCookie] = useState("");
 
@@ -120,16 +120,16 @@ const Navbar = () => {
           </ul>
           <motion.button
             whileTap={{ rotate: 90 }}
-            onClick={() => setShowDrawer((state) => !state)}
+            onClick={() => setShowNavMobile((state) => !state)}
             className=" block h-10 w-10 md:hidden"
           >
             <AnimatePresence>
-              {showDrawer ? <XIcon /> : <MenuIcon />}
+              {showNavMobile ? <XIcon /> : <MenuIcon />}
             </AnimatePresence>
           </motion.button>
         </div>
       </nav>
-      <AnimatePresence>{showDrawer && <Drawer />}</AnimatePresence>
+      <AnimatePresence>{showNavMobile && <NavMobile />}</AnimatePresence>
     </>
   );
 };

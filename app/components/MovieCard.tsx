@@ -1,4 +1,4 @@
-import { convertToUrlFormat, formatDate } from "@/utils/globalFunctions";
+import { formatDate } from "@/utils/globalFunctions";
 import { Movie } from "@/utils/interfaces";
 import Image from "next/image";
 import Link from "next/link";

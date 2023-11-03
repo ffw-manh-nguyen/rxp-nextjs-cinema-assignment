@@ -9,12 +9,18 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import { useRouter } from "next/navigation";
+
+export const RedirectToHome = () => {
+  const router = useRouter();
+  router.push("/");
+};
 
 const Login = () => {
   const [username, setUsername] = useState("aiemmanh");
   const [password, setPassword] = useState("AKsW7amJGF2J.Po");
   const [submitError, setSubmitError] = useState("");
-  const [isLoading, setLoading] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState(false);
 
   // form validation rules
   const validationSchema = Yup.object().shape({
@@ -102,6 +108,7 @@ const Login = () => {
             type="submit"
             className="relative inset-0 bg-gradient-to-r from-emerald-400 to-sky-400 py-2 font-bold"
             disabled={isLoading}
+            title="Login"
           >
             {isLoading ? "LOADING..." : "LOG IN"}
             <span className="absolute left-0 top-0 w-full transform rounded-sm bg-gradient-to-r from-emerald-600 to-sky-600 py-2 opacity-0 transition duration-300 hover:opacity-100">

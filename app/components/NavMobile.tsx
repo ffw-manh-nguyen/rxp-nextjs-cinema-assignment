@@ -9,7 +9,7 @@ import { getCookie } from "./Navbar";
 
 const logoFont = Righteous({ weight: "400", subsets: ["latin"] });
 
-const Drawer = () => {
+const NavMobile = () => {
   const [isAuth, setAuth] = useState(false);
   const [authCookie, setAuthCookie] = useState("");
 
@@ -93,4 +93,4 @@ const Drawer = () => {
   );
 };
 
-export default Drawer;
+export default NavMobile;
