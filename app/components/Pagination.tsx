@@ -13,9 +13,13 @@ const Pagination = ({
 }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const url = `${pathname}?${searchParams}`;
-  const navUrl =
-    `${searchParams}` === "" ? `${url}page=` : `${url.slice(0, -1)}`;
+  const pageParam = searchParams.get("page") || 1;
+
+  const createPageURL = (pageNumber: number | string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", pageNumber.toString());
+    return `${pathname}?${params.toString()}`;
+  };
 
   return (
     <>
@@ -23,7 +27,7 @@ const Pagination = ({
         <ul className="flex items-center justify-center gap-7 font-semibold">
           <li>
             <Link
-              href={`${navUrl}${Number(page) - 1}`}
+              href={createPageURL(Number(pageParam) - 1)}
               className={`cursor-pointer bg-gradient-to-r from-emerald-500 to-sky-500 bg-clip-text transition-all duration-100 hover:text-transparent ${
                 page > 1 ? "" : "hidden"
               }`}
@@ -33,7 +37,7 @@ const Pagination = ({
           </li>
           <li>
             <Link
-              href={`${navUrl}${Number(page) + 1}`}
+              href={createPageURL(Number(pageParam) + 1)}
               className={`cursor-pointer bg-gradient-to-r from-emerald-500 to-sky-500 bg-clip-text transition-all duration-100 hover:text-transparent ${
                 page < totalPages ? "" : "hidden"
               }`}
