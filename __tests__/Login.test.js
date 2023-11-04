@@ -4,10 +4,11 @@ import {
   fireEvent,
   render,
 } from "@testing-library/react";
-import Login, { RedirectToHome } from "../app/login/page";
+import Login from "../app/login/page";
 import "@testing-library/jest-dom";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { RedirectToHome } from "../utils/testRedirectToHome";
 
 jest.mock("react-hook-form", () => ({
   ...jest.requireActual("react-hook-form"),

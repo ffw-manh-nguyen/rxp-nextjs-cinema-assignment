@@ -2,19 +2,22 @@ import { render } from "@testing-library/react";
 import Navbar from "@/app/components/Navbar";
 import "@testing-library/jest-dom";
 import React from "react";
+import { useSearchParams, usePathname } from "next/navigation";
 
 jest.mock("next/navigation", () => ({
-  useRouter() {
+  useSearchParams() {
     return {
-      push: () => jest.fn(),
-      replace: () => jest.fn(),
+      get: () => jest.fn(),
     };
   },
   usePathname() {
     return jest.fn().mockImplementation(() => "/");
   },
-  useSearchParams() {
-    return {};
+  useRouter() {
+    return {
+      push: () => jest.fn(),
+      replace: () => jest.fn(),
+    };
   },
 }));
 
@@ -32,6 +35,7 @@ test("renders Navbar after logged in", async () => {
     .mockImplementation(() => [false, () => null])
     .mockImplementation(() => [true, () => null])
     .mockImplementation(() => [true, () => null]);
+
   const { findByText } = render(<Navbar />);
   const elementLogout = await findByText(/Logout/i);
   expect(elementLogout).toBeInTheDocument();

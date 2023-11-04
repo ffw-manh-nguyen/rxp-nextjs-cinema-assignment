@@ -6,7 +6,7 @@ import MoviePoster from "@/public/hero-poster.jpg";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import LINKS from "@/utils/links";
-import { decodeQuery } from "../search/page";
+import { decodeQuery } from "@/utils/globalFunctions";
 
 const logoFont = Righteous({ weight: "400", subsets: ["latin"] });
 

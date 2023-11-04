@@ -67,3 +67,7 @@ export const getRadialColor = (vote: number) => {
   if (vote > 0) return "text-rose-500 border-rose-500";
   return "text-slate-400 border-slate-400";
 };
+
+export const decodeQuery = (query: string): string => {
+  return decodeURIComponent(query).replace(/[^a-zA-Z0-9']/g, " ");
+};

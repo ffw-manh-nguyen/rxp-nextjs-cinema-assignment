@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import LINKS from "@/utils/links";
-import { decodeQuery } from "@/app/search/page";
+import { decodeQuery } from "@/utils/globalFunctions";
 
 const SearchBar = () => {
   const [searchQuery, setsearchQuery] = useState<string>("");
@@ -18,7 +18,7 @@ const SearchBar = () => {
       opened ? setOpened(false) : setOpened(true);
       return;
     }
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams.toString());
     if (searchQuery) {
       params.set("query", searchQuery);
     } else {

@@ -3,10 +3,7 @@ import MovieList from "@/app/components/MovieList";
 import NotFound from "@/app/components/NotFound";
 import Pagination from "@/app/components/Pagination";
 import { notFound } from "next/navigation";
-
-export const decodeQuery = (query: string): string => {
-  return decodeURIComponent(query).replace(/[^a-zA-Z0-9']/g, " ");
-};
+import { decodeQuery } from "@/utils/globalFunctions";
 
 const SearchPage = async ({
   searchParams,
