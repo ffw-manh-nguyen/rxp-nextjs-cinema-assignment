@@ -7,6 +7,7 @@ import {
   formatMoney,
   joinNames,
 } from "@/utils/globalFunctions";
+import { MovieDetail } from "@/utils/interfaces";
 import Image from "next/image";
 
 interface MovieDetailParams {
@@ -34,7 +35,8 @@ const MovieDetail = async ({ params: { slug } }: MovieDetailParams) => {
     revenue,
     budget,
     status,
-  } = movieData;
+  }: MovieDetail = movieData;
+
   return (
     <>
       <div className="text-sm">
