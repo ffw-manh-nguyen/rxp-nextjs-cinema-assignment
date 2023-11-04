@@ -17,6 +17,10 @@ yarn dev
 # or
 pnpm dev
 ```
+Test:
+```
+npm run test
+```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
@@ -26,4 +30,4 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Live preview
 
-- https://cinema-nextjs-p1gh.vercel.app/
+- [https://kopm-cinema-nextjs.vercel.app](https://kopm-cinema-nextjs.vercel.app)
