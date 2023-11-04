@@ -17,11 +17,10 @@ const NavMobile = () => {
     const cookie = getCookie("cinema-auth");
     setAuth(cookie ? true : false);
     setAuthCookie(`${cookie}`);
-    return () => {};
   }, [isAuth]);
 
   const handleLogout = async () => {
-    await deleteSession({ session_id: `${authCookie}` });
+    await deleteSession({ sessionId: `${authCookie}` });
     document.cookie =
       "cinema-auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setAuthCookie("");
@@ -52,10 +51,7 @@ const NavMobile = () => {
 
       <div className="flex flex-col font-semibold">
         <li>
-          <SearchBar
-            className="flex cursor-pointer bg-gradient-to-r from-emerald-500 to-sky-500 bg-clip-text transition-all duration-100"
-            id="desktop"
-          />
+          <SearchBar />
         </li>
         {menus.map((menu, index) => {
           return (

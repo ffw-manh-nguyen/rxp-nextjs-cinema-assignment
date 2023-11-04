@@ -13,12 +13,12 @@ export interface Genre {
 
 export interface ProductionCompany {
   id: number;
-  logo_path: string;
+  logoPath: string;
   name: string;
 }
 
 export interface SpokenLanguage {
-  english_name: string;
+  englishName: string;
   iso_639_1: string;
   name: string;
 }
@@ -57,7 +57,7 @@ export interface MovieListResponse {
 export interface MovieListComponent {
   title: string;
   movies: Movie[];
-  total_results: number;
+  totalResults: number;
   layout: string;
 }
 
@@ -67,4 +67,11 @@ export interface MovieList {
 
 export interface CustomableIcon {
   className?: string;
+}
+
+export interface RadialProgress {
+  voteAverage: number;
+  className?: string;
+  size: string;
+  thickness: string;
 }

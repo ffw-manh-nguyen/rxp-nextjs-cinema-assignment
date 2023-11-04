@@ -1,40 +1,43 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { useRouter } from "next/navigation";
-import Form from "./Form/Form";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import LINKS from "@/utils/links";
+import { decodeQuery } from "@/app/search/page";
 
-type SearchBarProps = {
-  className: string;
-  id: any;
-};
-
-const SearchBar = ({ className, id }: SearchBarProps) => {
-  const [searchQuery, setsearchQuery] = useState("");
-  const [opened, setOpened] = useState(false);
-  const formRef = useRef();
-  const router = useRouter();
+const SearchBar = () => {
+  const [searchQuery, setsearchQuery] = useState<string>("");
+  const [opened, setOpened] = useState<boolean>(false);
+  const searchParams = useSearchParams();
+  const pathName = usePathname();
+  const { replace } = useRouter();
 
   const onFormSubmitHandler = (e: any) => {
     e.preventDefault();
-    if (searchQuery.length === 0) {
+    if (searchQuery.length === 0 || searchQuery.trim() === "") {
       opened ? setOpened(false) : setOpened(true);
       return;
     }
-    router.push(
-      `${LINKS.SEARCH.PATHNAME}?q=${encodeURIComponent(searchQuery)}&page=1`
-    );
+    const params = new URLSearchParams(searchParams);
+    if (searchQuery) {
+      params.set("query", searchQuery);
+    } else {
+      params.delete("query");
+    }
+    const url = pathName.match(/\/search/)
+      ? `${pathName}?${params.toString()}`
+      : `${LINKS.SEARCH.PATHNAME}?${params.toString()}`;
+    replace(url);
   };
 
   return (
-    <div className={className}>
-      <Form opened={opened} ref={formRef} onSubmit={onFormSubmitHandler}>
+    <div className="flex cursor-pointer bg-gradient-to-r from-emerald-500 to-sky-500 bg-clip-text transition-all duration-100">
+      <form className="form-search" onSubmit={(e) => onFormSubmitHandler(e)}>
         <div className="relative mx-auto">
           <button
             type="submit"
             className="absolute right-0 top-1/2 -translate-y-1/2"
-            onClick={onFormSubmitHandler}
+            onClick={(e) => onFormSubmitHandler(e)}
           >
             <svg
               className="h-4 w-4 fill-current"
@@ -52,17 +55,18 @@ const SearchBar = ({ className, id }: SearchBarProps) => {
           </button>
           <input
             aria-label="Search Input"
-            id={`search-input-${id}`}
+            id="search-input"
             className={`${
               opened ? "" : "hidden"
             } h-10 rounded-sm border-b bg-transparent px-5 pr-16 text-sm placeholder-white focus:outline-none`}
             type="search"
             name="search"
             placeholder="Search for a movie..."
-            onChange={(e) => setsearchQuery(e.target.value)}
+            onChange={(e) => setsearchQuery(decodeQuery(e.target.value))}
+            defaultValue={searchParams.get("query")?.toString()}
           />
         </div>
-      </Form>
+      </form>
     </div>
   );
 };

@@ -13,24 +13,31 @@ export const tmdbAPI = axios.create({
   },
 });
 
+export const optionsGet = {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json;charset=utf-8",
+    Authorization: `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,
+  },
+};
+
 export const getMovieList = async ({
   query,
   page,
 }: {
   query: string;
-  page: string;
-}): Promise<MovieListResponse> => {
-  const requestUrl = `${MOVIE_BASE_URL}/${query}`;
-  try {
-    const res = await tmdbAPI.get(requestUrl, {
-      params: {
-        page: page !== "" ? page : 1,
-      },
-    });
-    return res.data;
-  } catch (err) {
-    return { page: 0, results: [], total_pages: 0, total_results: 0 };
+  page: number;
+}) => {
+  const res = await fetch(
+    `${MOVIE_BASE_URL}/${query}?page=${page}`,
+    optionsGet
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
   }
+
+  return res.json();
 };
 
 export const getMovieDetail = async (query: number): Promise<MovieDetail> => {
@@ -70,19 +77,18 @@ export const getSearchMovies = async ({
   page,
 }: {
   query: string;
-  page: string | null;
+  page: number;
 }): Promise<MovieListResponse> => {
-  try {
-    const res = await tmdbAPI.get(SEARCH_MOVIE_URL, {
-      params: {
-        query: query,
-        page: page,
-      },
-    });
-    return res.data;
-  } catch (err) {
-    return { page: 0, results: [], total_pages: 0, total_results: 0 };
+  const res = await fetch(
+    `${SEARCH_MOVIE_URL}?query=${query}&page=${page}`,
+    optionsGet
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
   }
+
+  return res.json();
 };
 
 export const getRequestToken = async () => {
@@ -97,11 +103,11 @@ export const getRequestToken = async () => {
 export const validateRequestToken = async ({
   username,
   password,
-  request_token,
+  requestToken,
 }: {
   username: string;
   password: string;
-  request_token: string;
+  requestToken: string;
 }) => {
   try {
     const res = await tmdbAPI.post(
@@ -109,7 +115,7 @@ export const validateRequestToken = async ({
       {
         username: username,
         password: password,
-        request_token: request_token,
+        request_token: requestToken,
       }
     );
     return res.data;
@@ -119,14 +125,14 @@ export const validateRequestToken = async ({
 };
 
 export const createSession = async ({
-  request_token,
+  requestToken,
 }: {
-  request_token: string;
+  requestToken: string;
 }) => {
   try {
     const res = await tmdbAPI.post(
       `${API_BASE_URL}/authentication/session/new`,
-      { request_token: request_token }
+      { requestToken: requestToken }
     );
     return res.data;
   } catch (err) {
@@ -134,11 +140,11 @@ export const createSession = async ({
   }
 };
 
-export const deleteSession = async ({ session_id }: { session_id: string }) => {
+export const deleteSession = async ({ sessionId }: { sessionId: string }) => {
   try {
     const res = await tmdbAPI.delete(`${API_BASE_URL}/authentication/session`, {
       data: {
-        session_id: session_id,
+        session_id: sessionId,
       },
     });
     return res.data;

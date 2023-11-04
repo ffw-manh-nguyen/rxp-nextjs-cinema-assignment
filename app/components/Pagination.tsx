@@ -5,10 +5,10 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
 const Pagination = ({
-  total_pages,
+  totalPages,
   page,
 }: {
-  total_pages: number;
+  totalPages: number;
   page: number;
 }) => {
   const pathname = usePathname();
@@ -35,7 +35,7 @@ const Pagination = ({
             <Link
               href={`${navUrl}${Number(page) + 1}`}
               className={`cursor-pointer bg-gradient-to-r from-emerald-500 to-sky-500 bg-clip-text transition-all duration-100 hover:text-transparent ${
-                page < total_pages ? "" : "hidden"
+                page < totalPages ? "" : "hidden"
               }`}
             >
               Next

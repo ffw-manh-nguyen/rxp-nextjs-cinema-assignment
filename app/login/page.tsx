@@ -36,16 +36,16 @@ const Login = () => {
   const handleLogin = async () => {
     setLoading(true);
     try {
-      let request_token = "";
+      let requestToken = "";
       const tokenRequest = await getRequestToken();
-      request_token = tokenRequest.request_token;
+      requestToken = tokenRequest.request_token;
       const validateReqToken = await validateRequestToken({
         username,
         password,
-        request_token,
+        requestToken,
       });
       if (validateReqToken.success) {
-        const creatSessionReq = await createSession({ request_token });
+        const creatSessionReq = await createSession({ requestToken });
         const sessionId = creatSessionReq.session_id;
         const date = new Date();
         date.setTime(date.getTime() + 60 * 60);

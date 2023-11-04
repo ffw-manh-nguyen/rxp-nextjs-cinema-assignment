@@ -60,3 +60,10 @@ export const formatMoney = (amount: number) => {
 
   return formatter.format(amount);
 };
+
+export const getRadialColor = (vote: number) => {
+  if (vote >= 7.0) return "text-emerald-500 border-emerald-500";
+  if (vote >= 4.0) return "text-yellow-500 border-yellow-500";
+  if (vote > 0) return "text-rose-500 border-rose-500";
+  return "text-slate-400 border-slate-400";
+};

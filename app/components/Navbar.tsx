@@ -42,7 +42,6 @@ const Navbar = () => {
     const cookie = getCookie("cinema-auth");
     setAuth(cookie ? true : false);
     setAuthCookie(`${cookie}`);
-    return () => {};
   }, [isAuth]);
 
   useEffect(() => {
@@ -58,7 +57,7 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = async () => {
-    await deleteSession({ session_id: `${authCookie}` });
+    await deleteSession({ sessionId: `${authCookie}` });
     document.cookie =
       "cinema-auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setAuthCookie("");
@@ -81,10 +80,7 @@ const Navbar = () => {
             CINEMA
           </Link>
           <ul className="hidden items-center gap-7 font-semibold md:flex">
-            <SearchBar
-              className="flex cursor-pointer bg-gradient-to-r from-emerald-500 to-sky-500 bg-clip-text transition-all duration-100"
-              id="desktop"
-            />
+            <SearchBar />
             {menus.map((menu, index) => {
               return (
                 <li key={index}>
